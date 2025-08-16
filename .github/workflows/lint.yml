@@ -1,0 +1,23 @@
+name: lint
+on: [pull_request]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v2
+      - name: Installing python...
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'
+      - name: Installing poetry...
+        run: pip install poetry==2.1.3
+      - name: Installing dependencies...
+        run: cd linter && poetry install --no-root
+      - name: Running lint check...
+        run: make lint.check
