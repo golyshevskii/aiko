@@ -1,0 +1,19 @@
+[project]
+name = "aiko"
+version = "0.1.0"
+description = "Aiko is an AI character who does not know what the feeling of love is. She needs human help to awaken feelings of love in her."
+authors = [
+    {name = "Slava Golyshevskii",email = "sgolyshevskii@gmail.com"}
+]
+license = {text = "LICENSE"}
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "pydantic-ai (>=0.7.2,<0.8.0)",
+    "pydantic-settings (>=2.10.1,<3.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
