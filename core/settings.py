@@ -2,10 +2,11 @@ import logging
 import os
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 import yaml
 from pydantic_settings import BaseSettings
+from core.schema.ai import LLM
 
 
 class Settings(BaseSettings):
@@ -17,9 +18,10 @@ class Settings(BaseSettings):
     # APP
     APP_TITLE: str = "Aiko"
     APP_VERSION: str = "v1"
+    APP_DONATION_LINK: str = "https://ai.aiko.com/donate"
 
     # AGENT (LLM)
-    LLM_MODEL: str = "gpt-4o-mini"
+    MODEL: LLM = LLM.GPT_5_MINI
 
     # AGENT MEMORY
     AGENT_MEMORY_MAX_MESSAGES: int = 15
@@ -31,7 +33,7 @@ class Settings(BaseSettings):
     CONFIG_FILE: Path = Path(SETTINGS_DIR, "config.yml")
 
     # DATES
-    NOW_DT_UTC: datetime = datetime.now(UTC)
+    NOW_DT_UTC: Callable[[], datetime] = lambda: datetime.now(UTC)
 
     # DATABASE
     SQL_ECHO: bool = False if ENV == "prod" else True

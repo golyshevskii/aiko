@@ -212,3 +212,4 @@ temp/
 .env.prod
 .env.dev
 note.md
+.cursor/
