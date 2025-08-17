@@ -6,7 +6,8 @@ from functools import wraps
 from core.bot.message import msg
 from core.bot.utils import send_message
 from core.db.init import get_session
-from core.schema.db import User, UserStatus
+from core.schema.db import UserStatus
+from core.db.schema import User
 from core.logger import get_logger
 from core.schema.bot import ChatAction
 from telegram import Update
@@ -162,9 +163,7 @@ class AccessControl:
                     )
                     await send_message(
                         update,
-                        msg.CALL_INACTIVE.format(
-                            donation_link=settings.AIKO_DONATION_LINK
-                        ),
+                        msg.START.format(token_url=settings.APP_TOKEN_BUY_URL),
                     )
                     return
 
@@ -188,7 +187,7 @@ class AccessControl:
                     str(exc),
                     format_exc(),
                 )
-                await send_message(update, msg.ERROR_PROCESSING)
+                await send_message(update, msg.ERROR)
                 return
 
         return wrapper
@@ -225,7 +224,7 @@ class AccessControl:
                     str(exc),
                     format_exc(),
                 )
-                await send_message(update, msg.ERROR_PROCESSING)
+                await send_message(update, msg.ERROR)
                 return
 
         return wrapper

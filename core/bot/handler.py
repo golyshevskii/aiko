@@ -1,7 +1,7 @@
 from traceback import format_exc
 from uuid import NAMESPACE_OID, uuid5
 
-from core.bot.command import call
+from core.bot.command import call, start
 from core.ai.agent import Aiko
 from core.bot.message import msg
 from core.bot.wrapper import access_required, typing_action
@@ -34,7 +34,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     user_model = context.user_data.get("user_model")
     if not user_model:
         logger.error("User model not found in context for user %s", tg_user_id)
-        await send_message(update, msg.ERROR_PROCESSING)
+        await send_message(update, msg.ERROR)
         return
 
     user_id = user_model.id
@@ -60,13 +60,14 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
             user_id,
             format_exc(),
         )
-        await send_message(update, msg.ERROR_PROCESSING)
+        await send_message(update, msg.ERROR)
     finally:
         pass
 
 
 def add_handlers(app: Application):
     """Add bot handlers."""
+    app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("call", call))
     app.add_handler(
         MessageHandler(

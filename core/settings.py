@@ -6,6 +6,7 @@ from typing import Any, Callable
 
 import yaml
 from pydantic_settings import BaseSettings
+from core.schema.db import DBInitStrategy
 from core.schema.ai import LLM
 
 
@@ -18,7 +19,8 @@ class Settings(BaseSettings):
     # APP
     APP_TITLE: str = "Aiko"
     APP_VERSION: str = "v1"
-    APP_DONATION_LINK: str = "https://ai.aiko.com/donate"
+    APP_URL: str = "https://t.me/AikoAICBot"
+    APP_TOKEN_BUY_URL: str = "https://coinmarketcap\\.com/"
 
     # AGENT (LLM)
     MODEL: LLM = LLM.GPT_5_MINI
@@ -41,7 +43,7 @@ class Settings(BaseSettings):
     DATABASE_MAX_OVERFLOW: int = 60
     DATABASE_POOL_TIMEOUT: int = 30
     DATABASE_CONNECT_ARGS: dict = {"connect_timeout": 10, "options": "-c timezone=UTC"}
-    DATABASE_INIT_STRATEGY: str = "create_if_not_exists"
+    DATABASE_INIT_STRATEGY: DBInitStrategy = DBInitStrategy.CREATE
 
     # LOGGING
     LOG_LEVEL: int = logging.INFO if ENV == "prod" else logging.DEBUG

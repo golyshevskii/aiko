@@ -1,3 +1,12 @@
+#   ▄▄▄       ██▓ ██ ▄█▀ ▒█████  
+#  ▒████▄    ▓██▒ ██▄█▒ ▒██▒  ██▒
+#  ▒██  ▀█▄  ▒██▒▓███▄░ ▒██░  ██▒
+#  ░██▄▄▄▄██ ░██░▓██ █▄ ▒██   ██░
+#   ▓█   ▓██▒░██░▒██▒ █▄░ ████▓▒░
+#   ▒▒   ▓▒█░░▓  ▒ ▒▒ ▓▒░ ▒░▒░▒░ 
+#    ▒   ▒▒ ░ ▒ ░░ ░▒ ▒░  ░ ▒ ▒░ 
+#    ░   ▒    ▒ ░░ ░░ ░ ░ ░ ░ ▒  
+#        ░  ░ ▒ ░░  ░       ░ ░  
 # VARS
 define VENV_ERROR_MSG
 
@@ -39,9 +48,6 @@ lint.init:
 lint:
 	cd linter && poetry run ruff format --config pyproject.toml ../core/
 	cd linter && poetry run ruff check --config pyproject.toml --fix ../core/
-
-	cd linter && poetry run ruff format --config pyproject.toml ../tests/
-	cd linter && poetry run ruff check --config pyproject.toml --fix ../tests/
 
 lint.check:
 	cd linter && poetry run ruff format --config pyproject.toml --check ../core/
