@@ -14,7 +14,6 @@ async def test_aiko():
                     user_id="QWERTY123",
                     username="frank123",
                     conversation_id=UUID(int=1),
-                    message_history=[],
                 ),
             )
         )
