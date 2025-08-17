@@ -3,6 +3,7 @@ from uuid import NAMESPACE_OID, uuid5
 
 from core.bot.command import call, start, faq, FAQ
 from core.ai.agent import POOL, AgentDependencies
+from core.ai.supervisor import SUPERVISOR
 from core.bot.message import msg
 from core.bot.wrapper import access_required, typing_action, register_user
 from core.bot.utils import send_message, add_message, answer_callback_query_with_error
@@ -52,7 +53,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 
     try:
         aiko = await POOL.get_instance()
-        response = await aiko.call(
+        response: str = await aiko.call(
             message,
             AgentDependencies(
                 user_id=user_id,
@@ -73,8 +74,8 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     else:
         await UserManager.revoke_access(user_id)
         await add_message(user_id, conversation_id, message, response)
-        # TODO: add Supervisor decision
-        score = 0
+
+        score: int = await SUPERVISOR.call(message, response)
         await ScoreManager.update_score(user_id, score)
     finally:
         await POOL.return_instance(aiko)

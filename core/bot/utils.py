@@ -41,7 +41,7 @@ async def answer_callback_query_with_error(update: Update, text: str = None) -> 
     """Send error response for callback query."""
     if update.callback_query:
         await update.callback_query.answer(
-            text or "An error occurred. Please try again\.", show_alert=True
+            text or "An error occurred\\. Please try again\\.", show_alert=True
         )
 
 

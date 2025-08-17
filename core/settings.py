@@ -26,10 +26,13 @@ class Settings(BaseSettings):
     APP_VERSION: str = "v1"
     APP_URL: str = "https://t.me/AikoAICBot"
     APP_TOKEN_BUY_URL: str = "https://coinmarketcap\\.com/"
+    APP_EPOCH_WINNERS_COUNT: int = 5
+    APP_EPOCH_LENGTH_DAYS: int = 7
+    APP_SUPPORT_EMAIL: str = "support@aiko\\.ai"
 
     # AGENT (LLM)
     AGENT_LLM: LLM = LLM.GPT_5_MINI
-    AGENT_PROMPT_FILE_PATH: Path = Path(SETTINGS_DIR, "ai", "prompts", "aiko-v2.json")
+    AGENT_PROMPT_FILE_PATH: Path = Path(SETTINGS_DIR, "ai", "prompts", "aiko-v3.json")
     AGENT_RESPONSE_TIMEOUT: int = 300  # Response timeout for the agent in seconds
 
     AGENT_POOL_SIZE: int = 10  # Max number of Agent instances in pool
