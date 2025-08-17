@@ -1,6 +1,6 @@
 # Aiko
 
-<a href=""><img src="" alt="aiko" align="right" width="100"/></a>
+<a href="https://t.me/AikoAICBot"><img src="docs/aiko.png" alt="aiko" align="right" width="100"/></a>
 
 [![Python](https://img.shields.io/badge/Python_3.12-111?logo=python)](https://docs.python.org/3.12/)
 [![PydanticAI](https://img.shields.io/badge/PydanticAI-fe2c54?logo=pydantic)](https://ai.pydantic.dev/)

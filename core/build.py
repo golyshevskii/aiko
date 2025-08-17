@@ -7,15 +7,18 @@ from halo import Halo
 
 def show_logo():
     """Show logo on startup."""
-    nbsp = "\u00a0"
-    logo = [
-        f"\n{nbsp * 8}{':' * 5}>{nbsp}{':' * 5}>",
-        f"{nbsp * 7}{':' * 2}{nbsp * 2}:>{nbsp}{':' * 2}{nbsp * 2}:>",
-        f"{nbsp * 6}{':' * 5}>{nbsp}{':' * 5}>",
-        f"{nbsp * 5}{':' * 2}{nbsp * 5}{':' * 2}",
-        f"{nbsp * 4}:{nbsp * 6}:\n",
-    ]
-    print("\n".join(logo))
+    logo = """
+  ▄▄▄       ██▓ ██ ▄█▀ ▒█████  
+ ▒████▄    ▓██▒ ██▄█▒ ▒██▒  ██▒
+ ▒██  ▀█▄  ▒██▒▓███▄░ ▒██░  ██▒
+ ░██▄▄▄▄██ ░██░▓██ █▄ ▒██   ██░
+  ▓█   ▓██▒░██░▒██▒ █▄░ ████▓▒░
+  ▒▒   ▓▒█░░▓  ▒ ▒▒ ▓▒░ ▒░▒░▒░ 
+   ▒   ▒▒ ░ ▒ ░░ ░▒ ▒░  ░ ▒ ▒░ 
+   ░   ▒    ▒ ░░ ░░ ░ ░ ░ ░ ▒  
+       ░  ░ ▒ ░░  ░       ░ ░  
+"""
+    print(logo)
     time.sleep(0.1)
 
 
@@ -46,7 +49,7 @@ def build():
             spinner.fail("Database initialization failed.")
             raise
 
-        spinner.succeed("Build completed!")
+        spinner.succeed(f"Build completed! Call Aiko at {settings.APP_URL}")
 
     show_logo()
 
