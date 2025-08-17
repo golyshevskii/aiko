@@ -1,0 +1,4 @@
+llm:
+  gpt-5-mini:
+    url: https://api.openai.com/v1
+    provider: openai

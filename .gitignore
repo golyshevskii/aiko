@@ -213,3 +213,4 @@ temp/
 .env.dev
 note.md
 .cursor/
+core/ai/prompts/aiko-v*.json

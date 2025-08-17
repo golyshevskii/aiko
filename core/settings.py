@@ -16,6 +16,11 @@ class Settings(BaseSettings):
     # ENVIRONMENT
     ENV: str = "dev"  # dev | prod
 
+    # DIRS
+    PROJECT_DIR: Path = Path.cwd()
+    SETTINGS_DIR: Path = Path(__file__).parent
+    CONFIG_FILE: Path = Path(SETTINGS_DIR, "config.yml")
+
     # APP
     APP_TITLE: str = "Aiko"
     APP_VERSION: str = "v1"
@@ -23,16 +28,24 @@ class Settings(BaseSettings):
     APP_TOKEN_BUY_URL: str = "https://coinmarketcap\\.com/"
 
     # AGENT (LLM)
-    MODEL: LLM = LLM.GPT_5_MINI
+    AGENT_LLM: LLM = LLM.GPT_5_MINI
+    AGENT_PROMPT_FILE_PATH: Path = Path(SETTINGS_DIR, "ai", "prompts", "aiko-v2.json")
+    AGENT_RESPONSE_TIMEOUT: int = 300  # Response timeout for the agent in seconds
+
+    AGENT_POOL_SIZE: int = 10  # Max number of Agent instances in pool
+    AGENT_POOL_TIMEOUT: int = (
+        300  # Timeout for getting an instance from the agent pool in seconds
+    )
+
+    # Circuit Breaker to protect the agent from cascading failures
+    # Example: Blocking event loop. If one coroutine hangs or takes too long,
+    # it can block the entire event loop, which will stop all other asynchronous operations.
+    AGENT_CIRCUIT_BREAKER_FAILURE_THRESHOLD: int = 5  # Trip after 5 failures
+    AGENT_CIRCUIT_BREAKER_RECOVERY_TIMEOUT: int = 60  # Stay open for 60 seconds
 
     # AGENT MEMORY
     AGENT_MEMORY_MAX_MESSAGES: int = 15
     AGENT_MEMORY_MAX_TOKENS: int = 4000
-
-    # DIRS
-    PROJECT_DIR: Path = Path.cwd()
-    SETTINGS_DIR: Path = Path(__file__).parent
-    CONFIG_FILE: Path = Path(SETTINGS_DIR, "config.yml")
 
     # DATES
     NOW_DT_UTC: Callable[[], datetime] = lambda: datetime.now(UTC)
@@ -55,7 +68,8 @@ class Settings(BaseSettings):
 
     # Config for ENV_VAR_* variables from .env file
     model_config: dict[str, Any] = {
-        "extra": "allow",  # Allow extra variables from .env file
+        "extra": "allow",  # Allow to use model_extra property to get env variables.
+        # Example: settings.model_extra["OPENAI_API_KEY"]
         "case_sensitive": True,  # Make environment variables case-insensitive
         "env_file": f"./.env.{ENV}",  # Load specific .env file
         "env_file_encoding": "utf-8",
