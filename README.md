@@ -8,7 +8,7 @@
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Black](https://img.shields.io/badge/Black-000?logo=black)](https://github.com/psf/black)
 
-Aiko is an AI character who does not know what the feeling of love is. She needs human help to awaken feelings of love in her.
+Aiko is an AI character that learns what love is through dialogue and turns user participation into transparent, on-chain rewards via the AIKO token.
 
 ## Context
 
