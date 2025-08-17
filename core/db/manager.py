@@ -172,7 +172,7 @@ class ScoreManager:
         """Update score for user."""
         score = await ScoreManager.get_score(user_id)
         if not score:
-            return await ScoreManager.create_score(user_id)
+            await ScoreManager.create_score(user_id)
 
         async for session in get_session():
             stmt = update(Score).where(Score.user_id == user_id).values(score=score)
