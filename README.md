@@ -12,4 +12,5 @@ Aiko is an AI character who does not know what the feeling of love is. She needs
 
 ## Context
 
+- [Aiko Demo](docs/demo/DEMO.md)
 - [LICENSE](LICENSE)
