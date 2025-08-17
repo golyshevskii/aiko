@@ -25,7 +25,7 @@ class TypingIndicator:
         update: Update, action: ChatAction = ChatAction.TYPING
     ) -> None:
         try:
-            await update.effective_chat.send_chat_action(action=action)
+            await update.effective_chat.send_chat_action(action=action.value)
         except Exception as e:
             logger.warning("Failed to send chat action '%s': %s", action, str(e))
 

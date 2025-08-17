@@ -56,7 +56,7 @@ class Settings(BaseSettings):
     DATABASE_MAX_OVERFLOW: int = 60
     DATABASE_POOL_TIMEOUT: int = 30
     DATABASE_CONNECT_ARGS: dict = {"connect_timeout": 10, "options": "-c timezone=UTC"}
-    DATABASE_INIT_STRATEGY: DBInitStrategy = DBInitStrategy.CREATE
+    DATABASE_INIT_STRATEGY: DBInitStrategy = DBInitStrategy.RECREATE
 
     # LOGGING
     LOG_LEVEL: int = logging.INFO if ENV == "prod" else logging.DEBUG

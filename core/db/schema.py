@@ -51,6 +51,9 @@ class User(DBase):
     conversation: Mapped[list["Conversation"]] = relationship(
         "Conversation", back_populates="user", cascade="all, delete-orphan"
     )
+    score: Mapped["Score"] = relationship(
+        "Score", back_populates="user", cascade="all, delete-orphan"
+    )
 
     def __repr__(self) -> str:
         return f"User(id={self.id}, status={self.status})"
@@ -142,3 +145,40 @@ class ConversationMessage(DBase):
 
     def __repr__(self) -> str:
         return f"ConversationMessage(id={self.id}, conversation_id={self.conversation_id}, role={self.role}, created_at={self.created_at})"
+
+
+class Score(DBase):
+    """Database model for score."""
+
+    __tablename__ = "scores"
+    __table_args__ = {"schema": "raw"}
+
+    id: Mapped[int] = mapped_column(
+        primary_key=True, autoincrement=True, comment="Unique score id"
+    )
+    user_id: Mapped[int] = mapped_column(
+        Integer,
+        ForeignKey("raw.users.id"),
+        nullable=False,
+        index=True,
+        comment="User id from users table",
+    )
+    score: Mapped[int] = mapped_column(Integer, default=0, comment="Score value")
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=text("CURRENT_TIMESTAMP"),
+        index=True,
+        comment="Score created at (UTC)",
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=text("CURRENT_TIMESTAMP"),
+        onupdate=text("CURRENT_TIMESTAMP"),
+        comment="Score updated at (UTC)",
+    )
+
+    # Relationships
+    user: Mapped["User"] = relationship("User", back_populates="score")
+
+    def __repr__(self) -> str:
+        return f"Score(id={self.id}, user_id={self.user_id}, score={self.score}, created_at={self.created_at})"

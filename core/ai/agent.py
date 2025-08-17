@@ -1,7 +1,7 @@
 import asyncio
 from datetime import timedelta
 from traceback import format_exc
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
 import logfire
 from aiobreaker import CircuitBreaker, CircuitBreakerError
@@ -17,8 +17,6 @@ from kaioretry import aioretry
 from pydantic_ai import RunContext
 from pydantic_ai.agent import Agent
 
-if TYPE_CHECKING:
-    from pydantic_ai.agent import AgentRunResult
 
 logfire.configure(
     service_name=settings.APP_TITLE, token=settings.model_extra["LOGFIRE_TOKEN"]
@@ -85,7 +83,6 @@ class Aiko:
             deps_type=AgentDependencies,
             system_prompt=self.system_prompt,
         )
-        self._agent_last_run_result: AgentRunResult | None = None
 
         @self.agent.instructions
         async def _instructions(ctx: RunContext) -> str:
@@ -98,7 +95,6 @@ class Aiko:
             message, deps=deps, message_history=deps.message_history
         )
 
-        self._agent_last_run_result = result
         logger.debug(
             "Agent responded for %s (%s). All messages:\n%s",
             deps.username,
