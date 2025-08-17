@@ -13,3 +13,9 @@ class LLM(CEnum):
     """Available LLMs."""
 
     GPT_5_MINI = "gpt-5-mini"
+
+
+class Provider(CEnum):
+    """Available providers."""
+
+    OPENAI = "openai"

@@ -37,6 +37,9 @@ aiko.run:
 test:
 	poetry run pytest
 
+test.agent:
+	poetry run python -m core.ai.agent
+
 # Linter
 lint.init:
 	@if [ -z "$$VIRTUAL_ENV" ]; then \
@@ -48,6 +51,9 @@ lint.init:
 lint:
 	cd linter && poetry run ruff format --config pyproject.toml ../core/
 	cd linter && poetry run ruff check --config pyproject.toml --fix ../core/
+
+	cd linter && poetry run ruff format --config pyproject.toml ../tests/
+	cd linter && poetry run ruff check --config pyproject.toml --fix ../tests/
 
 lint.check:
 	cd linter && poetry run ruff format --config pyproject.toml --check ../core/
