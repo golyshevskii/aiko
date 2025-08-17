@@ -170,8 +170,8 @@ class ScoreManager:
     @staticmethod
     async def update_score(user_id: int, score: int) -> bool:
         """Update score for user."""
-        score = await ScoreManager.get_score(user_id)
-        if not score:
+        existing_score = await ScoreManager.get_score(user_id)
+        if not existing_score:
             await ScoreManager.create_score(user_id)
 
         async for session in get_session():
